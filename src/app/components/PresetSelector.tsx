@@ -35,7 +35,6 @@ export function PresetSelector({ presets, activeId, onSelect }: Props) {
         {filtered.map((preset) => {
           const palette = seedToPalette(preset.seed)
           const isActive = preset.id === activeId
-          const isGenerated = preset.id.startsWith('vision-')
 
           return (
             <button
@@ -51,10 +50,7 @@ export function PresetSelector({ presets, activeId, onSelect }: Props) {
                 )}
               </div>
               <div className={styles.info}>
-                <div className={styles.name}>
-                  {isGenerated && <span className={styles.generated}>✦ </span>}
-                  {preset.name}
-                </div>
+                <div className={styles.name}>{preset.name}</div>
                 <div className={styles.desc}>{preset.description}</div>
               </div>
             </button>

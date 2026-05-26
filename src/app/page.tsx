@@ -6,7 +6,6 @@
 
 import { useState, useCallback, useMemo, useRef, useEffect } from 'react'
 import type { ColorTokens, Density, Animation, Typography, DarkLightTheme, BorderRadius, Shadow, HeadingStyle, ComponentStyle } from './lib/types'
-import type { Preset } from './lib/presets'
 import { seedToPalette, deriveLightMode } from './lib/colorEngine'
 import { PRESETS } from './lib/presets'
 import { FONT_PAIRS } from './lib/fontPairings'
@@ -18,7 +17,6 @@ import { SeedColorPicker } from './components/SeedColorPicker'
 import { FontPairPicker } from './components/FontPairPicker'
 import { DensitySlider } from './components/DensitySlider'
 import { AnimationPicker } from './components/AnimationPicker'
-import { VisionInput } from './components/VisionInput'
 import { DownloadButton } from './components/DownloadButton'
 import { ThemePreview } from './components/ThemePreview'
 import { ComponentGallery } from './components/ComponentGallery'
@@ -28,7 +26,6 @@ import { CollapsibleSection } from './components/CollapsibleSection'
 import styles from './page.module.css'
 
 export default function ThemePreviewerPage() {
-  /* ── state ────────────────────────────────────────────────────── */
   const [activePresetId, setActivePresetId] = useState(PRESETS[0].id)
   const [seedColor, setSeedColor] = useState(PRESETS[0].seed)
   const [fontPairIndex, setFontPairIndex] = useState(PRESETS[0].fontPairIndex)
@@ -38,17 +35,12 @@ export default function ThemePreviewerPage() {
   const [shadow, setShadow] = useState<Shadow>(PRESETS[0].shadow)
   const [headingStyle, setHeadingStyle] = useState<HeadingStyle>(PRESETS[0].headingStyle)
   const [componentStyle, setComponentStyle] = useState<ComponentStyle>(PRESETS[0].componentStyle)
-  const [visionText, setVisionText] = useState('')
-  const [generatedPresets, setGeneratedPresets] = useState<Preset[]>([])
-  const [isGenerating, setIsGenerating] = useState(false)
-  const [visionError, setVisionError] = useState<string | null>(null)
   const [themeName, setThemeName] = useState(PRESETS[0].name)
   const [previewMode, setPreviewMode] = useState<'dark' | 'light'>('dark')
   const [controlsWidth, setControlsWidth] = useState(340)
   const [collapsed, setCollapsed] = useState(false)
   const controlsWidthRef = useRef(340)
 
-  /* ── eager-load all preset fonts on mount ────────────────────── */
   useEffect(() => {
     const injected = new Set<string>()
     PRESETS.forEach((p) => {
@@ -60,7 +52,6 @@ export default function ThemePreviewerPage() {
     })
   }, [])
 
-  /* ── derived ──────────────────────────────────────────────────── */
   const darkColors = useMemo(() => seedToPalette(seedColor), [seedColor])
   const lightColors = useMemo(() => deriveLightMode(darkColors), [darkColors])
   const activeColors = previewMode === 'dark' ? darkColors : lightColors
@@ -75,65 +66,19 @@ export default function ThemePreviewerPage() {
     [fontPair],
   )
 
-  const allPresets = useMemo(
-    () => [...generatedPresets, ...PRESETS],
-    [generatedPresets],
-  )
-
-  /* ── handlers ─────────────────────────────────────────────────── */
-  const handleVisionGenerate = useCallback(async () => {
-    if (!visionText.trim()) return
-    setIsGenerating(true)
-    setVisionError(null)
-    let presets: Preset[] = []
-    try {
-      const res = await fetch('/api/theme-vision', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: visionText }),
-      })
-      if (res.ok) {
-        const data = await res.json()
-        presets = data.presets
-      } else {
-        setVisionError('Feature not available')
-      }
-    } catch {
-      setVisionError('Feature not available')
-    } finally {
-      setIsGenerating(false)
-    }
-    if (presets.length > 0) {
-      setGeneratedPresets(presets)
-      const first = presets[0]
-      setActivePresetId(first.id)
-      setThemeName(first.name)
-      setSeedColor(first.seed)
-      setFontPairIndex(first.fontPairIndex)
-      setDensity(first.density)
-      setBorderRadius(first.borderRadius)
-      setShadow(first.shadow)
-      setHeadingStyle(first.headingStyle)
-      setComponentStyle(first.componentStyle)
-    }
-  }, [visionText])
-
-  const handlePresetSelect = useCallback(
-    (id: string) => {
-      const preset = allPresets.find((p) => p.id === id)
-      if (!preset) return
-      setActivePresetId(id)
-      setThemeName(preset.name)
-      setSeedColor(preset.seed)
-      setFontPairIndex(preset.fontPairIndex)
-      setDensity(preset.density)
-      setBorderRadius(preset.borderRadius)
-      setShadow(preset.shadow)
-      setHeadingStyle(preset.headingStyle)
-      setComponentStyle(preset.componentStyle)
-    },
-    [allPresets],
-  )
+  const handlePresetSelect = useCallback((id: string) => {
+    const preset = PRESETS.find((p) => p.id === id)
+    if (!preset) return
+    setActivePresetId(id)
+    setThemeName(preset.name)
+    setSeedColor(preset.seed)
+    setFontPairIndex(preset.fontPairIndex)
+    setDensity(preset.density)
+    setBorderRadius(preset.borderRadius)
+    setShadow(preset.shadow)
+    setHeadingStyle(preset.headingStyle)
+    setComponentStyle(preset.componentStyle)
+  }, [])
 
   const handleResizeMouseDown = useCallback((e: React.MouseEvent) => {
     if (collapsed) return
@@ -155,7 +100,7 @@ export default function ThemePreviewerPage() {
 
   const handleSeedChange = useCallback((hex: string) => {
     setSeedColor(hex)
-    setActivePresetId('') // clear preset highlight since user customised
+    setActivePresetId('')
   }, [])
 
   const handleDownload = useCallback(() => {
@@ -175,7 +120,8 @@ export default function ThemePreviewerPage() {
     URL.revokeObjectURL(url)
   }, [themeName, darkColors, lightColors, typography, density, animation, borderRadius, shadow, headingStyle, componentStyle])
 
-  /* ── render ───────────────────────────────────────────────────── */
+  const activePresetName = PRESETS.find((p) => p.id === activePresetId)?.name
+
   return (
     <div className={styles.pageWrap}>
     <div className={styles.page}>
@@ -188,15 +134,10 @@ export default function ThemePreviewerPage() {
         className={styles.workspace}
         style={{ gridTemplateColumns: `${collapsed ? 0 : controlsWidth}px 12px 1fr` }}
       >
-        {/* ── Controls (left) ───────────────────────────── */}
         <div className={`${styles.controls}${collapsed ? ` ${styles.controlsCollapsed}` : ''}`}>
-          <CollapsibleSection label="Vision">
-            <VisionInput value={visionText} onChange={(t) => { setVisionText(t); setVisionError(null) }} onGenerate={handleVisionGenerate} isGenerating={isGenerating} error={visionError} />
-          </CollapsibleSection>
-
           <CollapsibleSection label="Presets">
             <PresetSelector
-              presets={allPresets}
+              presets={PRESETS}
               activeId={activePresetId}
               onSelect={handlePresetSelect}
             />
@@ -238,7 +179,6 @@ export default function ThemePreviewerPage() {
           </div>
         </div>
 
-        {/* ── Resize handle ─────────────────────────────── */}
         <div
           className={`${styles.resizeHandle}${collapsed ? ` ${styles.resizeHandleCollapsed}` : ''}`}
           onMouseDown={handleResizeMouseDown}
@@ -252,7 +192,6 @@ export default function ThemePreviewerPage() {
           </button>
         </div>
 
-        {/* ── Preview (right) ──────────────────────────── */}
         <div className={styles.preview}>
           <DarkLightToggle mode={previewMode} onChange={setPreviewMode} />
           <ThemePreview
@@ -265,7 +204,7 @@ export default function ThemePreviewerPage() {
             shadow={shadow}
             headingStyle={headingStyle}
             componentStyle={componentStyle}
-            presetName={allPresets.find(p => p.id === activePresetId)?.name}
+            presetName={activePresetName}
           />
           <ComponentGallery
             colors={activeColors}
@@ -277,7 +216,7 @@ export default function ThemePreviewerPage() {
             shadow={shadow}
             headingStyle={headingStyle}
             componentStyle={componentStyle}
-            presetName={allPresets.find(p => p.id === activePresetId)?.name}
+            presetName={activePresetName}
           />
         </div>
       </div>
