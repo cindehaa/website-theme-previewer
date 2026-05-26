@@ -1,0 +1,73 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.colorInput {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  cursor: pointer;
+  background: none;
+  padding: 0;
+  overflow: hidden;
+}
+
+.colorInput::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.colorInput::-webkit-color-swatch {
+  border: none;
+  border-radius: 6px;
+}
+
+.colorInput::-moz-color-swatch {
+  border: none;
+  border-radius: 6px;
+}
+
+.hexInput {
+  flex: 1;
+  padding: 0.5rem 0.65rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.hexInput:focus {
+  border-color: var(--color-accent);
+}
+
+.quickPicks {
+  display: flex;
+  gap: 6px;
+  margin-top: 0.5rem;
+}
+
+.quickPick {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.quickPick:hover {
+  transform: scale(1.15);
+}
+
+.quickPickActive {
+  composes: quickPick;
+  border-color: var(--color-text);
+}

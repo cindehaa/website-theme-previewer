@@ -1,0 +1,471 @@
+/* ── Component gallery ────────────────────────────────────────── */
+
+.frame {
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.frameLabel {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding: 0.5rem 0.75rem;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.gallery {
+  padding: var(--preview-padding, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--preview-gap, 1.25rem);
+}
+
+/* ── sections ────────────────────────────────────────────────── */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.sectionTitle {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--tok-text-muted);
+}
+
+/* ── typography ──────────────────────────────────────────────── */
+
+.typeScale {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.typeH1 {
+  font-size: 1.75rem;
+  font-weight: var(--preview-heading-weight, 700);
+  letter-spacing: var(--preview-heading-tracking, -0.01em);
+  text-transform: var(--preview-heading-transform, none);
+  color: var(--tok-text);
+}
+
+.typeH2 {
+  font-size: 1.35rem;
+  font-weight: var(--preview-heading-weight, 600);
+  letter-spacing: var(--preview-heading-tracking, -0.01em);
+  text-transform: var(--preview-heading-transform, none);
+  color: var(--tok-text);
+}
+
+.typeH3 {
+  font-size: 1.05rem;
+  font-weight: var(--preview-heading-weight, 600);
+  letter-spacing: var(--preview-heading-tracking, 0em);
+  text-transform: var(--preview-heading-transform, none);
+  color: var(--tok-text);
+}
+
+.typeBody {
+  font-size: 0.85rem;
+  color: var(--tok-text);
+  line-height: 1.6;
+}
+
+.typeMuted {
+  font-size: 0.8rem;
+  color: var(--tok-text-muted);
+  line-height: 1.5;
+}
+
+/* ── buttons ─────────────────────────────────────────────────── */
+
+.buttonRow {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.btnPrimary {
+  padding: 0.5rem 1rem;
+  background: var(--tok-accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--preview-radius, 8px);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--preview-shadow, none);
+  transition: transform var(--anim-dur, 0s) var(--anim-ease, ease),
+              filter var(--anim-dur, 0s) ease;
+}
+
+.btnPrimary:hover {
+  transform: translateY(var(--anim-hover-y, 0px)) scale(var(--anim-hover-scale, 1));
+  filter: brightness(1.1);
+}
+
+.btnSecondary {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  color: var(--tok-accent);
+  border: 1px solid var(--tok-accent);
+  border-radius: var(--preview-radius, 8px);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform var(--anim-dur, 0s) var(--anim-ease, ease),
+              background var(--anim-dur, 0s) ease,
+              color var(--anim-dur, 0s) ease;
+}
+
+.btnSecondary:hover {
+  transform: translateY(var(--anim-hover-y, 0px)) scale(var(--anim-hover-scale, 1));
+  background: var(--tok-accent-light);
+}
+
+.btnGhost {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  color: var(--tok-text-muted);
+  border: 1px solid var(--tok-border);
+  border-radius: var(--preview-radius, 8px);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: transform var(--anim-dur, 0s) var(--anim-ease, ease),
+              color var(--anim-dur, 0s) ease,
+              border-color var(--anim-dur, 0s) ease;
+}
+
+.btnGhost:hover {
+  transform: translateY(var(--anim-hover-y, 0px)) scale(var(--anim-hover-scale, 1));
+  color: var(--tok-text);
+  border-color: var(--tok-text-muted);
+}
+
+/* ── inputs ──────────────────────────────────────────────────── */
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  max-width: 300px;
+}
+
+.inputLabel {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--tok-text);
+}
+
+.input {
+  padding: 0.5rem 0.75rem;
+  background: var(--tok-bg);
+  border: 1px solid var(--tok-border);
+  border-radius: var(--preview-radius, 8px);
+  color: var(--tok-text);
+  font-size: 0.8rem;
+  font-family: inherit;
+}
+
+/* ── card sample ─────────────────────────────────────────────── */
+
+.sampleCard {
+  background: var(--tok-surface);
+  border: 1px solid var(--tok-border);
+  border-radius: var(--preview-radius, 8px);
+  padding: var(--preview-padding, 1rem);
+  max-width: 320px;
+  box-shadow: var(--preview-shadow, none);
+  transition: transform var(--anim-dur, 0s) var(--anim-ease, ease),
+              border-color var(--anim-dur, 0s) ease;
+}
+
+.sampleCard:hover {
+  transform: translateY(var(--anim-hover-y, 0px)) scale(var(--anim-hover-scale, 1));
+  border-color: var(--tok-accent);
+}
+
+.cardTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--tok-text);
+  margin-bottom: 0.35rem;
+}
+
+.cardBody {
+  font-size: 0.78rem;
+  color: var(--tok-text-muted);
+  line-height: 1.5;
+  margin-bottom: 0.65rem;
+}
+
+.cardFooter {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* ── code block ──────────────────────────────────────────────── */
+
+.codeBlock {
+  background: var(--tok-surface);
+  border: 1px solid var(--tok-border);
+  border-radius: var(--preview-radius, 8px);
+  padding: 0.75rem 1rem;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  color: var(--tok-text);
+}
+
+/* ── badges ──────────────────────────────────────────────────── */
+
+.badgeRow {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+
+.badgeAccent {
+  composes: badge;
+  background: var(--tok-accent);
+  color: #fff;
+}
+
+.badgeSuccess {
+  composes: badge;
+  background: var(--tok-success);
+  color: #fff;
+}
+
+.badgeWarning {
+  composes: badge;
+  background: var(--tok-warning);
+  color: #1a1a1a;
+}
+
+.badgeError {
+  composes: badge;
+  background: var(--tok-error);
+  color: #fff;
+}
+
+/* ── component style variants ────────────────────────────────── */
+
+/* editorial: italic section labels, larger type scale */
+.galleryEditorial .sectionTitle {
+  font-style: italic;
+  text-transform: none;
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+  color: var(--tok-text-muted);
+  opacity: 0.8;
+}
+
+.galleryEditorial .typeH1 { font-size: 2.1rem; }
+.galleryEditorial .typeH2 { font-size: 1.55rem; }
+.galleryEditorial .typeBody { line-height: 1.75; }
+
+/* brutalist: stark section labels, angular card chrome */
+.galleryBrutalist .sectionTitle {
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tok-text);
+  border-bottom: 2px solid var(--tok-text);
+  padding-bottom: 0.25rem;
+}
+
+.galleryBrutalist .sampleCard {
+  border-radius: 0;
+  border-left: 3px solid var(--tok-accent);
+  border-right: none;
+  border-top: none;
+}
+
+.galleryBrutalist .btnPrimary {
+  border-radius: 0;
+  background: var(--tok-text);
+  color: var(--tok-bg);
+  box-shadow: none;
+}
+
+.galleryBrutalist .btnSecondary,
+.galleryBrutalist .btnGhost {
+  border-radius: 0;
+}
+
+.galleryBrutalist .input {
+  border-radius: 0;
+}
+
+/* minimal: faded section labels, stripped card chrome */
+.galleryMinimal .sectionTitle {
+  font-size: 0.58rem;
+  opacity: 0.45;
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+
+.galleryMinimal .sampleCard {
+  background: transparent;
+  border-color: transparent;
+  border-top: 1px solid var(--tok-border);
+  border-radius: 0;
+  padding-left: 0;
+  padding-right: 0;
+  box-shadow: none;
+  max-width: 100%;
+}
+
+.galleryMinimal .btnSecondary,
+.galleryMinimal .btnGhost {
+  border-radius: 0;
+}
+
+/* magazine: bold section labels with bottom rule */
+.galleryMagazine .sectionTitle {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--tok-border);
+  padding-bottom: 0.3rem;
+  color: var(--tok-text);
+  text-transform: none;
+}
+
+.galleryMagazine .sampleCard {
+  max-width: 100%;
+}
+
+/* wedding: centered and elegant */
+.galleryWedding .sectionTitle {
+  text-align: center;
+  font-style: italic;
+  text-transform: none;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--tok-accent);
+  border-bottom: 1px solid var(--tok-border);
+  padding-bottom: 0.25rem;
+}
+
+.galleryWedding .typeH1,
+.galleryWedding .typeH2,
+.galleryWedding .typeH3 {
+  text-align: center;
+}
+
+.galleryWedding .sampleCard {
+  text-align: center;
+  max-width: 100%;
+}
+
+.galleryWedding .cardFooter {
+  justify-content: center;
+}
+
+.galleryWedding .btnPrimary {
+  background: transparent;
+  color: var(--tok-accent);
+  border: 1px solid var(--tok-accent);
+  box-shadow: none;
+}
+
+.galleryWedding .input {
+  text-align: center;
+}
+
+/* avant: raw diagonal energy */
+.galleryAvant .sectionTitle {
+  font-size: 0.52rem;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--tok-accent);
+  border-left: 3px solid var(--tok-accent);
+  padding-left: 0.4rem;
+  border-bottom: none;
+}
+
+.galleryAvant .typeH1 {
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+/* ── animation entrance sequences ────────────────────────────── */
+
+@keyframes galleryFadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gallerySpringUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.93); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+[data-animation='subtle'] .section {
+  animation: galleryFadeUp 0.28s ease both;
+}
+[data-animation='subtle'] .section:nth-child(2) { animation-delay: 0.05s; }
+[data-animation='subtle'] .section:nth-child(3) { animation-delay: 0.10s; }
+[data-animation='subtle'] .section:nth-child(4) { animation-delay: 0.15s; }
+[data-animation='subtle'] .section:nth-child(5) { animation-delay: 0.20s; }
+
+[data-animation='playful'] .section {
+  animation: gallerySpringUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+[data-animation='playful'] .section:nth-child(2) { animation-delay: 0.06s; }
+[data-animation='playful'] .section:nth-child(3) { animation-delay: 0.12s; }
+[data-animation='playful'] .section:nth-child(4) { animation-delay: 0.18s; }
+[data-animation='playful'] .section:nth-child(5) { animation-delay: 0.24s; }
+
+.galleryAvant .typeH2 {
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.galleryAvant .sampleCard {
+  border-radius: 0;
+  border: none;
+  border-left: 4px solid var(--tok-accent);
+  max-width: 100%;
+  box-shadow: none;
+}
+
+.galleryAvant .btnPrimary {
+  border-radius: 0;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.galleryAvant .btnSecondary,
+.galleryAvant .btnGhost {
+  border-radius: 0;
+}
+
+.galleryAvant .input {
+  border-radius: 0;
+  border-color: var(--tok-accent);
+}

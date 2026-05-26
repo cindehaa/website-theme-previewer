@@ -1,0 +1,53 @@
+.track {
+  display: flex;
+  gap: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.option {
+  flex: 1;
+  padding: 0.5rem 0.25rem;
+  background: var(--color-surface);
+  border: none;
+  border-right: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  text-align: center;
+  color: var(--color-text-muted);
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.option:last-child {
+  border-right: none;
+}
+
+.option:hover {
+  background: var(--color-surface-hover);
+}
+
+.optionActive {
+  composes: option;
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.optionActive:hover {
+  background: var(--color-accent);
+}
+
+.label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.68rem;
+}
+
+.hint {
+  display: block;
+  font-size: 0.55rem;
+  opacity: 0.7;
+  margin-top: 0.1rem;
+}

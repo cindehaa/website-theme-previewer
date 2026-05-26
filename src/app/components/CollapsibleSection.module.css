@@ -1,0 +1,57 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0 0 0.5rem;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+}
+
+.trigger:hover .label {
+  color: var(--color-text);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  transition: color 0.15s ease;
+}
+
+.chevron {
+  font-size: 0.55rem;
+  color: var(--color-text-muted);
+  transition: transform 0.2s ease, color 0.15s ease;
+  display: flex;
+  align-items: center;
+}
+
+.chevronOpen {
+  composes: chevron;
+  transform: rotate(180deg);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+  animation: slideDown 0.18s ease forwards;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

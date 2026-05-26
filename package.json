@@ -1,0 +1,25 @@
+{
+  "name": "website-theme-previewer",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "next": "^15.5.9",
+    "react": "^19.1.4",
+    "react-dom": "^19.1.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.17",
+    "@types/react": "^19.0.14",
+    "@types/react-dom": "^19.0.9",
+    "eslint": "^9.39.2",
+    "eslint-config-next": "^15.5.9",
+    "typescript": "^5.8.4"
+  }
+}
